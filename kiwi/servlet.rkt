@@ -1,5 +1,6 @@
 #lang racket
 (require
+  (only-in kiwi/page page-path)
   (only-in net/url path/param-path url-path)
   (only-in web-server/http request-uri)
   (only-in web-server/http/response-structs response/output)
@@ -24,12 +25,6 @@
     )
   )
 )
-
-(define (page-path page)
-  (let* ((base (build-path (current-directory) "doc"))
-         (full (build-path base page)))
-    ; BUG: check whether full is a subpath of base
-    full))
 
 (define (home req)
   (response/xexpr (render-page "home" (list))))
