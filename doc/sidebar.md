@@ -1,4 +1,4 @@
-# kiwi
+# [kiwi](/)
 
  - [Home](/)
  - [Setup](/html/setup.md)
