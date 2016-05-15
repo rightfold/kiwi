@@ -21,7 +21,7 @@
         ,@body))))
 
 (define (home req)
-  (response/xexpr (template "home" (list))))
+  (response/xexpr (template "home" (render-page "index.md"))))
 
 (define (html req page)
   (response/xexpr (template "html" (render-page page))))
