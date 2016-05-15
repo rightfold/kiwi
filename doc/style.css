@@ -56,12 +56,18 @@ p {
     margin: 18px 0;
 }
 
-hr {
+body > .-sidebar > hr {
+    border: none;
+    border-top: solid 1px #ddd;
+    margin: 18px 0 17px 0;
+}
+
+body > .-content > hr {
     border: none;
     margin: 18px 0;
 }
 
-hr:before {
+body > .-content > hr:before {
     content: '❧';
     display: block;
     text-align: center;
@@ -100,4 +106,31 @@ blockquote {
     border-left: solid 4px #ddd;
     margin: 18px 18px 18px 0;
     padding-left: 14px;
+}
+
+.-sidebar > .-search > .-query {
+    display: flex;
+}
+
+.-sidebar > .-search > .-query > input[type=search] {
+    flex: 1;
+    height: 21px;
+    margin-bottom: 15px;
+}
+
+.-sidebar > .-search > .-query > button[type=submit] {
+    flex: 0 0 36px;
+    margin-left: 18px;
+    margin-bottom: 15px;
+    height: 21px;
+}
+
+.-sidebar > .-search > label {
+    display: inline-block;
+    line-height: 18px;
+}
+
+.-sidebar > .-search > label > input[type=checkbox] {
+    vertical-align: middle;
+    margin: 0;
 }

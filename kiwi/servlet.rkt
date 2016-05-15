@@ -23,6 +23,9 @@
 (define (home req)
   (response/xexpr (template "home" (render-page "index.md"))))
 
+(define (search req)
+  (response/xexpr (template "search" '("hello"))))
+
 (define (html req page)
   (response/xexpr (template page (render-page page))))
 
@@ -36,6 +39,7 @@
 (define (servlet req)
   (match (map path/param-path (url-path (request-uri req)))
     ((list "")            (home req))
+    ((list "search")      (search req))
     ((list-rest "html" p) (html req (string-join p "/")))
     ((list-rest "raw"  p) (raw  req (string-join p "/")))
   )
