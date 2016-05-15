@@ -1,5 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic|Roboto+Condensed:300');
+@import url('reset.css');
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     display: flex;
+
+    background-color: white;
+    color: black;
+
+    font-family: Lora, serif;
+    font-size: 14px;
+
+    margin: 18px;
 }
 
 body > .-sidebar {
@@ -8,4 +23,81 @@ body > .-sidebar {
 
 body > .-content {
     flex: 1;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: lighter;
+}
+
+h1 { font-size: 42.00px; line-height: 72px; }
+h2 { font-size: 31.50px; line-height: 54px; }
+h3 { font-size: 24.50px; line-height: 36px; }
+h4 { font-size: 15.75px; line-height: 18px; }
+h5 { font-size: 14.00px; line-height: 18px; }
+h6 { font-size: 14.00px; line-height: 18px; }
+
+ul {
+    list-style: square;
+    padding-left: 28px;
+}
+
+ol {
+    list-style: decimal;
+    padding-left: 28px;
+}
+
+ul > li, ol > li {
+    line-height: 18px;
+}
+
+p {
+    line-height: 18px;
+    margin: 18px 0;
+}
+
+hr {
+    border: none;
+    margin: 18px 0;
+}
+
+hr:before {
+    content: '❧';
+    display: block;
+    text-align: center;
+    line-height: 18px;
+}
+
+pre {
+    line-height: 18px;
+    margin: 18px 0;
+}
+
+pre > code {
+    display: block;
+    padding: 18px;
+}
+
+code {
+    background-color: #f9f9f9;
+    font-family: monospace;
+}
+
+a {
+    text-decoration: none;
+    color: #0645ad;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:visited {
+    color: #0b0080;
+}
+
+blockquote {
+    border-left: solid 4px #ddd;
+    margin: 18px 18px 18px 0;
+    padding-left: 14px;
 }
