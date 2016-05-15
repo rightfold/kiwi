@@ -24,7 +24,7 @@
   (response/xexpr (template "home" (render-page "index.md"))))
 
 (define (html req page)
-  (response/xexpr (template "html" (render-page page))))
+  (response/xexpr (template page (render-page page))))
 
 (define (raw req page)
   (let ((i (open-input-file (page-path page))))
