@@ -1,15 +1,11 @@
 #lang racket
 (require
-  (only-in kiwi/page page-path)
-  (only-in markdown parse-markdown)
+  (only-in kiwi/page page-path render-page)
   (only-in net/url path/param-path url-path)
   (only-in web-server/http request-uri)
   (only-in web-server/http/response-structs response/output)
   (only-in web-server/http/xexpr response/xexpr)
 )
-
-(define (render-page page)
-  (parse-markdown (page-path page)))
 
 (define (template title body)
   `(html
