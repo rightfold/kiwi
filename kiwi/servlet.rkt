@@ -2,6 +2,7 @@
 (require
   (only-in net/url path/param-path url-path)
   (only-in web-server/http request-uri)
+  (only-in web-server/http/response-structs response/output)
   (only-in web-server/http/xexpr response/xexpr)
 )
 
@@ -24,14 +25,22 @@
   )
 )
 
+(define (page-path page)
+  (let* ((base (build-path (current-directory) "doc"))
+         (full (build-path base page)))
+    ; BUG: check whether full is a subpath of base
+    full))
+
 (define (home req)
   (response/xexpr (render-page "home" (list))))
 
-(define (html req path)
-  (response/xexpr (render-page "html" (list path))))
+(define (html req page)
+  (response/xexpr (render-page "html" (list page))))
 
-(define (raw req path)
-  (response/xexpr (render-page "raw" (list path))))
+(define (raw req page)
+  (response/output
+    (λ (o) (copy-port (open-input-file (page-path page)) o))
+    #:mime-type #"text/plain"))
 
 (provide servlet)
 (define (servlet req)
