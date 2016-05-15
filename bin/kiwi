@@ -1,0 +1,12 @@
+#!/usr/bin/env racket
+#lang racket
+(require
+  (only-in web-server/servlet-env serve/servlet)
+  (only-in kiwi/servlet servlet)
+)
+
+(serve/servlet servlet
+  #:listen-ip "0.0.0.0"
+  #:launch-browser? #f
+  #:servlet-regexp #rx""
+)
