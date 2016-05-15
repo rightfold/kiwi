@@ -1,8 +1,14 @@
 #lang racket
 (require
+  (only-in kiwi/grep grep)
   (only-in markdown parse-markdown)
   (only-in xml xexpr?)
 )
+
+(provide (contract-out (search-pages (-> string? boolean? boolean? boolean?
+                                         (listof string?)))))
+(define (search-pages query regex invert case)
+  (map path->string (grep query regex invert case)))
 
 (provide (contract-out (page-path (-> string? path?))))
 (define (page-path page)

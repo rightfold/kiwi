@@ -1,7 +1,7 @@
 #lang racket
 (require
-  (only-in kiwi/page page-path render-page)
-  (only-in net/url path/param-path url-path)
+  (only-in kiwi/page page-path render-page search-pages)
+  (only-in net/url path/param-path url-path url-query)
   (only-in web-server/http request-uri)
   (only-in web-server/http/response-structs response/output)
   (only-in web-server/http/xexpr response/xexpr)
@@ -23,8 +23,20 @@
 (define (home req)
   (response/xexpr (template "home" (render-page "index.md"))))
 
+(define (assoc-or k d xs)
+  (match (assoc k xs) (#f d) (p (cdr p))))
+
 (define (search req)
-  (response/xexpr (template "search" '("hello"))))
+  (let* ((params (url-query (request-uri req)))
+         (text-param (λ (k) (or (assoc-or k "" params) "")))
+         (bool-param (λ (k) (not (not (assoc-or k #f params)))))
+         (query  (text-param 'query))
+         (regex  (bool-param 'regex))
+         (invert (bool-param 'invert))
+         (case   (bool-param 'case))
+         (results (search-pages query regex invert case))
+         (lis (map (λ (e) `(li (a ((href ,(string-append "/html/" e))) ,e))) results)))
+    (response/xexpr (template "search" `((h1 "search") (ul ,@lis))))))
 
 (define (html req page)
   (response/xexpr (template page (render-page page))))

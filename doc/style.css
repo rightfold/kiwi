@@ -19,6 +19,7 @@ body {
 
 body > .-sidebar {
     flex: 0 0 240px;
+    margin-right: 18px;
 }
 
 body > .-content {
