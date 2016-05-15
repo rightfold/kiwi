@@ -1,6 +1,7 @@
 #lang racket
 (require
   (only-in kiwi/page page-path)
+  (only-in markdown parse-markdown)
   (only-in net/url path/param-path url-path)
   (only-in web-server/http request-uri)
   (only-in web-server/http/response-structs response/output)
@@ -30,12 +31,14 @@
   (response/xexpr (render-page "home" (list))))
 
 (define (html req page)
-  (response/xexpr (render-page "html" (list page))))
+  (let ((body (parse-markdown (page-path page))))
+    (response/xexpr (render-page "html" body))))
 
 (define (raw req page)
-  (response/output
-    (λ (o) (copy-port (open-input-file (page-path page)) o))
-    #:mime-type #"text/plain"))
+  (let ((i (open-input-file (page-path page))))
+    (response/output
+      (λ (o) (copy-port i o))
+      #:mime-type #"text/plain")))
 
 (provide servlet)
 (define (servlet req)

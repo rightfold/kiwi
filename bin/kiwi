@@ -8,5 +8,6 @@
 (serve/servlet servlet
   #:listen-ip "0.0.0.0"
   #:launch-browser? #f
+  #:servlet-current-directory (build-path (current-directory) "doc")
   #:servlet-regexp #rx""
 )
