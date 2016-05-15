@@ -8,7 +8,10 @@
   (only-in web-server/http/xexpr response/xexpr)
 )
 
-(define (render-page title body)
+(define (render-page page)
+  (parse-markdown (page-path page)))
+
+(define (template title body)
   `(html
     (head
       (meta ((charset "utf-8")))
@@ -16,23 +19,16 @@
       (link ((rel "stylesheet") (href "/raw/style.css")))
     )
     (body
-      (header ((class "kiwi-sidebar"))
-        (a ((href "/")) "kiwi")
-      )
-      (article ((class "kiwi-content"))
-        (h1 ,title)
-        ,@body
-      )
-    )
-  )
-)
+      (header ((class "-sidebar"))
+        ,@(render-page "sidebar.md"))
+      (article ((class "-content"))
+        ,@body))))
 
 (define (home req)
-  (response/xexpr (render-page "home" (list))))
+  (response/xexpr (template "home" (list))))
 
 (define (html req page)
-  (let ((body (parse-markdown (page-path page))))
-    (response/xexpr (render-page "html" body))))
+  (response/xexpr (template "html" (render-page page))))
 
 (define (raw req page)
   (let ((i (open-input-file (page-path page))))
