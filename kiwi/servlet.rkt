@@ -21,7 +21,7 @@
         ,@body))))
 
 (define (home req)
-  (response/xexpr (template "home" (render-page "index.md"))))
+  (html req "index.md"))
 
 (define (assoc-or k d xs)
   (match (assoc k xs) (#f d) (p (cdr p))))
@@ -38,8 +38,13 @@
          (lis (map (λ (e) `(li (a ((href ,(string-append "/html/" e))) ,e))) results)))
     (response/xexpr (template "search" `((h1 "search") (ul ,@lis))))))
 
+(define (footer page)
+  `((p
+      (a ((href ,(string-append "/raw/"     page))) "raw") " "
+      (a ((href ,(string-append "/history/" page))) "history"))))
+
 (define (html req page)
-  (response/xexpr (template page (render-page page))))
+  (response/xexpr (template page (append (render-page page) (footer page)))))
 
 (define (raw req page)
   (let ((i (open-input-file (page-path page))))
